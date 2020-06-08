@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '12.0'
   s.swift_version         = '5.0'
   s.source                = { :git => 'https://github.com/trilliwon/GanGImage.git', :tag => s.version.to_s }
-  s.source_files          = 'YYImage/Sources/*.{h, m}'
-  s.public_header_files   = 'YYImage/Sources/*.{h}'
+  s.source_files          = 'Sources/YYImage/*.{h,m}'
+  s.public_header_files   = 'Sources/YYImage/*.{h}'
   s.frameworks            = 'UIKit', 'CoreFoundation', 'QuartzCore', 'ImageIO', 'Accelerate', 'MobileCoreServices'
-  s.vendored_frameworks   = 'WebP.framework', 'WebPDemux.framework', ' WebPMux.framework'
+  s.vendored_frameworks   = 'Sources/Vendor/WebP.framework', 'Sources/Vendor/WebPDemux.framework', 'Sources/Vendor/WebPMux.framework'
 end
