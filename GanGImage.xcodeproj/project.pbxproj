@@ -13,14 +13,15 @@
 		E30DFDF9248E39750083A140 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30DFDF7248E39750083A140 /* Main.storyboard */; };
 		E30DFDFB248E39770083A140 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E30DFDFA248E39770083A140 /* Assets.xcassets */; };
 		E30DFDFE248E39770083A140 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30DFDFC248E39770083A140 /* LaunchScreen.storyboard */; };
-		E30DFE08248E399E0083A140 /* WebPDemux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30DFE05248E399E0083A140 /* WebPDemux.framework */; };
-		E30DFE09248E399E0083A140 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30DFE06248E399E0083A140 /* WebP.framework */; };
-		E30DFE0A248E399E0083A140 /* WebPMux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30DFE07248E399E0083A140 /* WebPMux.framework */; };
 		E30DFE16248E39B70083A140 /* YYSpriteSheetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE0C248E39B60083A140 /* YYSpriteSheetImage.m */; };
 		E30DFE17248E39B70083A140 /* YYAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE0D248E39B60083A140 /* YYAnimatedImageView.m */; };
 		E30DFE18248E39B70083A140 /* YYImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE0F248E39B60083A140 /* YYImage.m */; };
 		E30DFE19248E39B70083A140 /* YYFrameImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE10248E39B60083A140 /* YYFrameImage.m */; };
 		E30DFE1A248E39B70083A140 /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE13248E39B60083A140 /* YYImageCoder.m */; };
+		E32CA3792490704C00167DBC /* WebPDemux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32CA3762490704C00167DBC /* WebPDemux.framework */; };
+		E32CA37A2490704C00167DBC /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32CA3772490704C00167DBC /* WebP.framework */; };
+		E32CA37B2490704C00167DBC /* WebPMux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32CA3782490704C00167DBC /* WebPMux.framework */; };
+		E32CA37D249070FD00167DBC /* heart.webp in Resources */ = {isa = PBXBuildFile; fileRef = E32CA37C249070DF00167DBC /* heart.webp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,10 @@
 		E30DFE13248E39B60083A140 /* YYImageCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYImageCoder.m; sourceTree = "<group>"; };
 		E30DFE14248E39B60083A140 /* YYSpriteSheetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSpriteSheetImage.h; sourceTree = "<group>"; };
 		E30DFE15248E39B60083A140 /* YYAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimatedImageView.h; sourceTree = "<group>"; };
+		E32CA3762490704C00167DBC /* WebPDemux.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebPDemux.framework; path = Sources/Vendor/WebPDemux.framework; sourceTree = "<group>"; };
+		E32CA3772490704C00167DBC /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = Sources/Vendor/WebP.framework; sourceTree = "<group>"; };
+		E32CA3782490704C00167DBC /* WebPMux.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebPMux.framework; path = Sources/Vendor/WebPMux.framework; sourceTree = "<group>"; };
+		E32CA37C249070DF00167DBC /* heart.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = heart.webp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,9 +58,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E30DFE09248E399E0083A140 /* WebP.framework in Frameworks */,
-				E30DFE08248E399E0083A140 /* WebPDemux.framework in Frameworks */,
-				E30DFE0A248E399E0083A140 /* WebPMux.framework in Frameworks */,
+				E32CA3792490704C00167DBC /* WebPDemux.framework in Frameworks */,
+				E32CA37A2490704C00167DBC /* WebP.framework in Frameworks */,
+				E32CA37B2490704C00167DBC /* WebPMux.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +74,7 @@
 				E30DFDF0248E39750083A140 /* GanGImage */,
 				E30DFDEF248E39750083A140 /* Products */,
 				E30DFE0B248E39B50083A140 /* GanGImage-Bridging-Header.h */,
+				E32CA3752490704C00167DBC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,6 +95,7 @@
 				E30DFDF7248E39750083A140 /* Main.storyboard */,
 				E30DFDFA248E39770083A140 /* Assets.xcassets */,
 				E30DFDFC248E39770083A140 /* LaunchScreen.storyboard */,
+				E32CA37C249070DF00167DBC /* heart.webp */,
 				E30DFDFF248E39770083A140 /* Info.plist */,
 			);
 			path = GanGImage;
@@ -120,6 +127,16 @@
 				E30DFE07248E399E0083A140 /* WebPMux.framework */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		E32CA3752490704C00167DBC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E32CA3772490704C00167DBC /* WebP.framework */,
+				E32CA3762490704C00167DBC /* WebPDemux.framework */,
+				E32CA3782490704C00167DBC /* WebPMux.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E32CA37D249070FD00167DBC /* heart.webp in Resources */,
 				E30DFDFE248E39770083A140 /* LaunchScreen.storyboard in Resources */,
 				E30DFDFB248E39770083A140 /* Assets.xcassets in Resources */,
 				E30DFDF9248E39750083A140 /* Main.storyboard in Resources */,
@@ -277,7 +295,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -331,7 +349,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -350,6 +368,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Sources/Vendor",
 				);
 				INFOPLIST_FILE = GanGImage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -374,6 +393,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Sources/Vendor",
 				);
 				INFOPLIST_FILE = GanGImage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
