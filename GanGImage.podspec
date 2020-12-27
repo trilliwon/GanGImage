@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name                  = 'GanGImage'
-  s.version               = '1.0.1'
+  s.version               = '1.1.0'
   s.summary               = 'Decode Animated Images such as WebP, APNG, GIF all source from YYImage'
   s.homepage              = 'https://github.com/trilliwon/GanGImage'
   s.license               = { :type => "Copyright", :text => "Copyright (c) Won. All rights reserved." }
@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
   s.source_files          = 'Sources/YYImage/*.{h,m}'
   s.public_header_files   = 'Sources/YYImage/*.{h}'
   s.frameworks            = 'UIKit', 'CoreFoundation', 'QuartzCore', 'ImageIO', 'Accelerate', 'CoreServices'
-  s.vendored_frameworks   = 'Sources/Vendor/WebP.framework', 'Sources/Vendor/WebPDemux.framework', 'Sources/Vendor/WebPMux.framework'
+  s.dependency 'libwebp'
 end

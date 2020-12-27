@@ -21,22 +21,26 @@
 #import <pthread.h>
 #import <zlib.h>
 
+#import <libwebp/decode.h>
+#import <libwebp/encode.h>
+#import <libwebp/demux.h>
+#import <libwebp/mux.h>
 
 #ifndef YYIMAGE_WEBP_ENABLED
-#if __has_include(<webp/decode.h>) && __has_include(<webp/encode.h>) && \
-    __has_include(<webp/demux.h>)  && __has_include(<webp/mux.h>)
+#if __has_include(<WebP/decode.h>) && __has_include(<WebP/encode.h>) && \
+    __has_include(<WebP/demux.h>)  && __has_include(<WebP/mux.h>)
 #define YYIMAGE_WEBP_ENABLED 1
-#import <webp/decode.h>
-#import <webp/encode.h>
-#import <webpdemux/demux.h>
-#import <webpmux/mux.h>
-#elif __has_include("webp/decode.h") && __has_include("webp/encode.h") && \
-      __has_include("webpdemux/demux.h")  && __has_include("webpmux/mux.h")
+#import <WebP/decode.h>
+#import <WebP/encode.h>
+#import <WebPDemux/demux.h>
+#import <WebPMux/mux.h>
+#elif __has_include("libwebp/decode.h") && __has_include("libwebp/encode.h") && \
+      __has_include("libwebp/demux.h")  && __has_include("libwebp/mux.h")
 #define YYIMAGE_WEBP_ENABLED 1
-#import "webp/decode.h"
-#import "webp/encode.h"
-#import "webpdemux/demux.h"
-#import "webpmux/mux.h"
+#import "libwebp/decode.h"
+#import "libwebp/encode.h"
+#import "libwebp/demux.h"
+#import "libwebp/mux.h"
 #else
 #define YYIMAGE_WEBP_ENABLED 0
 #endif
@@ -1233,9 +1237,10 @@ CFDataRef YYCGImageCreateEncodedWebPData(CGImageRef imageRef, BOOL lossless, CGF
     if (!imageRef) return nil;
     size_t width = CGImageGetWidth(imageRef);
     size_t height = CGImageGetHeight(imageRef);
+
     if (width == 0 || width > WEBP_MAX_DIMENSION) return nil;
     if (height == 0 || height > WEBP_MAX_DIMENSION) return nil;
-    
+
     vImage_Buffer buffer = {0};
     if(!YYCGImageDecodeToBitmapBufferWith32BitFormat(imageRef, &buffer, kCGImageAlphaLast | kCGBitmapByteOrderDefault)) return nil;
     
