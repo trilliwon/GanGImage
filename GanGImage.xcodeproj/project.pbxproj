@@ -20,6 +20,7 @@
 		E30DFE19248E39B70083A140 /* YYFrameImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE10248E39B60083A140 /* YYFrameImage.m */; };
 		E30DFE1A248E39B70083A140 /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE13248E39B60083A140 /* YYImageCoder.m */; };
 		E32CA37D249070FD00167DBC /* heart.webp in Resources */ = {isa = PBXBuildFile; fileRef = E32CA37C249070DF00167DBC /* heart.webp */; };
+		E3DA00C125B02C1F00590B57 /* ImageCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DA00C025B02C1F00590B57 /* ImageCoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		E30DFE14248E39B60083A140 /* YYSpriteSheetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSpriteSheetImage.h; sourceTree = "<group>"; };
 		E30DFE15248E39B60083A140 /* YYAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimatedImageView.h; sourceTree = "<group>"; };
 		E32CA37C249070DF00167DBC /* heart.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = heart.webp; sourceTree = "<group>"; };
+		E3DA00C025B02C1F00590B57 /* ImageCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoder.swift; sourceTree = "<group>"; };
 		E484E8C0D8BF07482287566E /* Pods-GanGImage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GanGImage.debug.xcconfig"; path = "Target Support Files/Pods-GanGImage/Pods-GanGImage.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +119,7 @@
 				E30DFE13248E39B60083A140 /* YYImageCoder.m */,
 				E30DFE14248E39B60083A140 /* YYSpriteSheetImage.h */,
 				E30DFE0C248E39B60083A140 /* YYSpriteSheetImage.m */,
+				E3DA00C025B02C1F00590B57 /* ImageCoder.swift */,
 			);
 			path = YYImage;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				E30DFE16248E39B70083A140 /* YYSpriteSheetImage.m in Sources */,
 				E30DFDF6248E39750083A140 /* ViewController.swift in Sources */,
 				E30DFDF2248E39750083A140 /* AppDelegate.swift in Sources */,
+				E3DA00C125B02C1F00590B57 /* ImageCoder.swift in Sources */,
 				E30DFE1A248E39B70083A140 /* YYImageCoder.m in Sources */,
 				E30DFDF4248E39750083A140 /* SceneDelegate.swift in Sources */,
 				E30DFE19248E39B70083A140 /* YYFrameImage.m in Sources */,
@@ -408,6 +412,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H784KZZFXT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -434,6 +439,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H784KZZFXT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
