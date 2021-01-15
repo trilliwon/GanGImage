@@ -10,30 +10,35 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var imageView: YYAnimatedImageView = {
+    var animatedImageView: YYAnimatedImageView = {
         let v = YYAnimatedImageView()
         v.image = YYImage(named: "heart")
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
 
+    var webPDecoder: WebPDecoder?
+
     @IBAction func startAnimating(_ sender: UIButton) {
-        imageView.currentAnimatedImageIndex = 0
-        imageView.startAnimating()
+        animatedImageView.currentAnimatedImageIndex = 0
+        animatedImageView.startAnimating()
+        webPDecoder = .init()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.addSubview(imageView)
+        view.addSubview(animatedImageView)
 
         NSLayoutConstraint.activate([
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
-            imageView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            animatedImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            animatedImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            animatedImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            animatedImageView.heightAnchor.constraint(equalTo: animatedImageView.widthAnchor),
+            animatedImageView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
 }
 
+extension UIImage {
+    
+}

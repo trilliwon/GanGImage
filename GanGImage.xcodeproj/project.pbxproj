@@ -20,8 +20,23 @@
 		E30DFE19248E39B70083A140 /* YYFrameImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE10248E39B60083A140 /* YYFrameImage.m */; };
 		E30DFE1A248E39B70083A140 /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E30DFE13248E39B60083A140 /* YYImageCoder.m */; };
 		E32CA37D249070FD00167DBC /* heart.webp in Resources */ = {isa = PBXBuildFile; fileRef = E32CA37C249070DF00167DBC /* heart.webp */; };
+		E3BC359C25B1669600169C15 /* GanGImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BC359B25B1669600169C15 /* GanGImageTests.swift */; };
+		E3BC35AA25B16A6400169C15 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = E3BC35A925B16A6400169C15 /* sample.png */; };
+		E3BC35AE25B16CC900169C15 /* small.png in Resources */ = {isa = PBXBuildFile; fileRef = E3BC35AD25B16CC900169C15 /* small.png */; };
+		E3BC35B225B53C8C00169C15 /* WebPDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BC35B125B53C8C00169C15 /* WebPDecoder.swift */; };
+		E3BC35B625B5510800169C15 /* WebPDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BC35B525B5510800169C15 /* WebPDecoderTests.swift */; };
 		E3DA00C125B02C1F00590B57 /* ImageCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DA00C025B02C1F00590B57 /* ImageCoder.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E3BC359E25B1669600169C15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E30DFDE6248E39750083A140 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E30DFDED248E39750083A140;
+			remoteInfo = GanGImage;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		573143AC1ED8A767FADBF5E9 /* Pods-GanGImage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GanGImage.release.xcconfig"; path = "Target Support Files/Pods-GanGImage/Pods-GanGImage.release.xcconfig"; sourceTree = "<group>"; };
@@ -46,6 +61,13 @@
 		E30DFE14248E39B60083A140 /* YYSpriteSheetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSpriteSheetImage.h; sourceTree = "<group>"; };
 		E30DFE15248E39B60083A140 /* YYAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimatedImageView.h; sourceTree = "<group>"; };
 		E32CA37C249070DF00167DBC /* heart.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = heart.webp; sourceTree = "<group>"; };
+		E3BC359925B1669600169C15 /* GanGImageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GanGImageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3BC359B25B1669600169C15 /* GanGImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanGImageTests.swift; sourceTree = "<group>"; };
+		E3BC359D25B1669600169C15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3BC35A925B16A6400169C15 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
+		E3BC35AD25B16CC900169C15 /* small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = small.png; sourceTree = "<group>"; };
+		E3BC35B125B53C8C00169C15 /* WebPDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPDecoder.swift; sourceTree = "<group>"; };
+		E3BC35B525B5510800169C15 /* WebPDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPDecoderTests.swift; sourceTree = "<group>"; };
 		E3DA00C025B02C1F00590B57 /* ImageCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoder.swift; sourceTree = "<group>"; };
 		E484E8C0D8BF07482287566E /* Pods-GanGImage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GanGImage.debug.xcconfig"; path = "Target Support Files/Pods-GanGImage/Pods-GanGImage.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,6 +78,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EF6EA4AE65CAD5D335D8106 /* Pods_GanGImage.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3BC359625B1669600169C15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +105,7 @@
 			children = (
 				E30DFE1C248E39D00083A140 /* Sources */,
 				E30DFDF0248E39750083A140 /* GanGImage */,
+				E3BC359A25B1669600169C15 /* GanGImageTests */,
 				E30DFDEF248E39750083A140 /* Products */,
 				E30DFE0B248E39B50083A140 /* GanGImage-Bridging-Header.h */,
 				E32CA3752490704C00167DBC /* Frameworks */,
@@ -87,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				E30DFDEE248E39750083A140 /* GanGImage.app */,
+				E3BC359925B1669600169C15 /* GanGImageTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,6 +132,8 @@
 				E30DFDFA248E39770083A140 /* Assets.xcassets */,
 				E30DFDFC248E39770083A140 /* LaunchScreen.storyboard */,
 				E32CA37C249070DF00167DBC /* heart.webp */,
+				E3BC35A925B16A6400169C15 /* sample.png */,
+				E3BC35AD25B16CC900169C15 /* small.png */,
 				E30DFDFF248E39770083A140 /* Info.plist */,
 			);
 			path = GanGImage;
@@ -120,6 +153,7 @@
 				E30DFE14248E39B60083A140 /* YYSpriteSheetImage.h */,
 				E30DFE0C248E39B60083A140 /* YYSpriteSheetImage.m */,
 				E3DA00C025B02C1F00590B57 /* ImageCoder.swift */,
+				E3BC35B125B53C8C00169C15 /* WebPDecoder.swift */,
 			);
 			path = YYImage;
 			sourceTree = "<group>";
@@ -138,6 +172,16 @@
 				7D18F534FBD32761E2AF5E9C /* Pods_GanGImage.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E3BC359A25B1669600169C15 /* GanGImageTests */ = {
+			isa = PBXGroup;
+			children = (
+				E3BC359B25B1669600169C15 /* GanGImageTests.swift */,
+				E3BC359D25B1669600169C15 /* Info.plist */,
+				E3BC35B525B5510800169C15 /* WebPDecoderTests.swift */,
+			);
+			path = GanGImageTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,19 +206,41 @@
 			productReference = E30DFDEE248E39750083A140 /* GanGImage.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E3BC359825B1669600169C15 /* GanGImageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3BC35A225B1669600169C15 /* Build configuration list for PBXNativeTarget "GanGImageTests" */;
+			buildPhases = (
+				E3BC359525B1669600169C15 /* Sources */,
+				E3BC359625B1669600169C15 /* Frameworks */,
+				E3BC359725B1669600169C15 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E3BC359F25B1669600169C15 /* PBXTargetDependency */,
+			);
+			name = GanGImageTests;
+			productName = GanGImageTests;
+			productReference = E3BC359925B1669600169C15 /* GanGImageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		E30DFDE6248E39750083A140 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = won;
 				TargetAttributes = {
 					E30DFDED248E39750083A140 = {
 						CreatedOnToolsVersion = 11.5;
 						LastSwiftMigration = 1150;
+					};
+					E3BC359825B1669600169C15 = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = E30DFDED248E39750083A140;
 					};
 				};
 			};
@@ -192,6 +258,7 @@
 			projectRoot = "";
 			targets = (
 				E30DFDED248E39750083A140 /* GanGImage */,
+				E3BC359825B1669600169C15 /* GanGImageTests */,
 			);
 		};
 /* End PBXProject section */
@@ -202,9 +269,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				E32CA37D249070FD00167DBC /* heart.webp in Resources */,
+				E3BC35AE25B16CC900169C15 /* small.png in Resources */,
 				E30DFDFE248E39770083A140 /* LaunchScreen.storyboard in Resources */,
 				E30DFDFB248E39770083A140 /* Assets.xcassets in Resources */,
 				E30DFDF9248E39750083A140 /* Main.storyboard in Resources */,
+				E3BC35AA25B16A6400169C15 /* sample.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3BC359725B1669600169C15 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +335,7 @@
 			files = (
 				E30DFE16248E39B70083A140 /* YYSpriteSheetImage.m in Sources */,
 				E30DFDF6248E39750083A140 /* ViewController.swift in Sources */,
+				E3BC35B225B53C8C00169C15 /* WebPDecoder.swift in Sources */,
 				E30DFDF2248E39750083A140 /* AppDelegate.swift in Sources */,
 				E3DA00C125B02C1F00590B57 /* ImageCoder.swift in Sources */,
 				E30DFE1A248E39B70083A140 /* YYImageCoder.m in Sources */,
@@ -269,7 +346,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E3BC359525B1669600169C15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3BC35B625B5510800169C15 /* WebPDecoderTests.swift in Sources */,
+				E3BC359C25B1669600169C15 /* GanGImageTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E3BC359F25B1669600169C15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E30DFDED248E39750083A140 /* GanGImage */;
+			targetProxy = E3BC359E25B1669600169C15 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E30DFDF7248E39750083A140 /* Main.storyboard */ = {
@@ -458,6 +552,50 @@
 			};
 			name = Release;
 		};
+		E3BC35A025B1669600169C15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J2WX5LW4CC;
+				INFOPLIST_FILE = GanGImageTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.trilliwon.GanGImageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GanGImage.app/GanGImage";
+			};
+			name = Debug;
+		};
+		E3BC35A125B1669600169C15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J2WX5LW4CC;
+				INFOPLIST_FILE = GanGImageTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.trilliwon.GanGImageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GanGImage.app/GanGImage";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -475,6 +613,15 @@
 			buildConfigurations = (
 				E30DFE03248E39770083A140 /* Debug */,
 				E30DFE04248E39770083A140 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E3BC35A225B1669600169C15 /* Build configuration list for PBXNativeTarget "GanGImageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3BC35A025B1669600169C15 /* Debug */,
+				E3BC35A125B1669600169C15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

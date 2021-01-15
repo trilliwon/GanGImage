@@ -11,6 +11,225 @@
 
 #import <UIKit/UIKit.h>
 
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Utility (for little endian platform)
+
+#define YY_FOUR_CC(c1,c2,c3,c4) ((uint32_t)(((c4) << 24) | ((c3) << 16) | ((c2) << 8) | (c1)))
+#define YY_TWO_CC(c1,c2) ((uint16_t)(((c2) << 8) | (c1)))
+
+static inline uint32_t fourCC2(uint8_t c1, uint8_t c2, uint8_t c3, uint8_t c4) {
+    return ((uint32_t)(((c4) << 24) | ((c3) << 16) | ((c2) << 8) | (c1)));
+}
+
+static inline uint16_t twoCC2(uint16_t c1, uint16_t c2) {
+    return ((uint16_t)(((c2) << 8) | (c1)));
+}
+
+static inline uint16_t yy_swap_endian_uint16(uint16_t value) {
+    return
+    (uint16_t) ((value & 0x00FF) << 8) |
+    (uint16_t) ((value & 0xFF00) >> 8) ;
+}
+
+static inline uint32_t yy_swap_endian_uint32(uint32_t value) {
+    return
+    (uint32_t)((value & 0x000000FFU) << 24) |
+    (uint32_t)((value & 0x0000FF00U) <<  8) |
+    (uint32_t)((value & 0x00FF0000U) >>  8) |
+    (uint32_t)((value & 0xFF000000U) >> 24) ;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - APNG
+
+/*
+ PNG  spec: http://www.libpng.org/pub/png/spec/1.2/PNG-Structure.html
+ APNG spec: https://wiki.mozilla.org/APNG_Specification
+
+ ===============================================================================
+ PNG format:
+ header (8): 89 50 4e 47 0d 0a 1a 0a
+ chunk, chunk, chunk, ...
+
+ ===============================================================================
+ chunk format:
+ length (4): uint32_t big endian
+ fourcc (4): chunk type code
+ data   (length): data
+ crc32  (4): uint32_t big endian crc32(fourcc + data)
+
+ ===============================================================================
+ PNG chunk define:
+
+ IHDR (Image Header) required, must appear first, 13 bytes
+ width              (4) pixel count, should not be zero
+ height             (4) pixel count, should not be zero
+ bit depth          (1) expected: 1, 2, 4, 8, 16
+ color type         (1) 1<<0 (palette used), 1<<1 (color used), 1<<2 (alpha channel used)
+ compression method (1) 0 (deflate/inflate)
+ filter method      (1) 0 (adaptive filtering with five basic filter types)
+ interlace method   (1) 0 (no interlace) or 1 (Adam7 interlace)
+
+ IDAT (Image Data) required, must appear consecutively if there's multiple 'IDAT' chunk
+
+ IEND (End) required, must appear last, 0 bytes
+
+ ===============================================================================
+ APNG chunk define:
+
+ acTL (Animation Control) required, must appear before 'IDAT', 8 bytes
+ num frames     (4) number of frames
+ num plays      (4) number of times to loop, 0 indicates infinite looping
+
+ fcTL (Frame Control) required, must appear before the 'IDAT' or 'fdAT' chunks of the frame to which it applies, 26 bytes
+ sequence number   (4) sequence number of the animation chunk, starting from 0
+ width             (4) width of the following frame
+ height            (4) height of the following frame
+ x offset          (4) x position at which to render the following frame
+ y offset          (4) y position at which to render the following frame
+ delay num         (2) frame delay fraction numerator
+ delay den         (2) frame delay fraction denominator
+ dispose op        (1) type of frame area disposal to be done after rendering this frame (0:none, 1:background 2:previous)
+ blend op          (1) type of frame area rendering for this frame (0:source, 1:over)
+
+ fdAT (Frame Data) required
+ sequence number   (4) sequence number of the animation chunk
+ frame data        (x) frame data for this frame (same as 'IDAT')
+
+ ===============================================================================
+ `dispose_op` specifies how the output buffer should be changed at the end of the delay
+ (before rendering the next frame).
+
+ * NONE: no disposal is done on this frame before rendering the next; the contents
+    of the output buffer are left as is.
+ * BACKGROUND: the frame's region of the output buffer is to be cleared to fully
+    transparent black before rendering the next frame.
+ * PREVIOUS: the frame's region of the output buffer is to be reverted to the previous
+    contents before rendering the next frame.
+
+ `blend_op` specifies whether the frame is to be alpha blended into the current output buffer
+ content, or whether it should completely replace its region in the output buffer.
+
+ * SOURCE: all color components of the frame, including alpha, overwrite the current contents
+    of the frame's output buffer region.
+ * OVER: the frame should be composited onto the output buffer based on its alpha,
+    using a simple OVER operation as described in the "Alpha Channel Processing" section
+    of the PNG specification
+ */
+
+typedef enum {
+    YY_PNG_ALPHA_TYPE_PALEETE = 1 << 0,
+    YY_PNG_ALPHA_TYPE_COLOR = 1 << 1,
+    YY_PNG_ALPHA_TYPE_ALPHA = 1 << 2,
+} yy_png_alpha_type;
+
+typedef enum {
+    YY_PNG_DISPOSE_OP_NONE = 0,
+    YY_PNG_DISPOSE_OP_BACKGROUND = 1,
+    YY_PNG_DISPOSE_OP_PREVIOUS = 2,
+} yy_png_dispose_op;
+
+typedef enum {
+    YY_PNG_BLEND_OP_SOURCE = 0,
+    YY_PNG_BLEND_OP_OVER = 1,
+} yy_png_blend_op;
+
+typedef struct {
+    uint32_t width;             ///< pixel count, should not be zero
+    uint32_t height;            ///< pixel count, should not be zero
+    uint8_t bit_depth;          ///< expected: 1, 2, 4, 8, 16
+    uint8_t color_type;         ///< see yy_png_alpha_type
+    uint8_t compression_method; ///< 0 (deflate/inflate)
+    uint8_t filter_method;      ///< 0 (adaptive filtering with five basic filter types)
+    uint8_t interlace_method;   ///< 0 (no interlace) or 1 (Adam7 interlace)
+} yy_png_chunk_IHDR;
+
+typedef struct {
+    uint32_t sequence_number;  ///< sequence number of the animation chunk, starting from 0
+    uint32_t width;            ///< width of the following frame
+    uint32_t height;           ///< height of the following frame
+    uint32_t x_offset;         ///< x position at which to render the following frame
+    uint32_t y_offset;         ///< y position at which to render the following frame
+    uint16_t delay_num;        ///< frame delay fraction numerator
+    uint16_t delay_den;        ///< frame delay fraction denominator
+    uint8_t dispose_op;        ///< see yy_png_dispose_op
+    uint8_t blend_op;          ///< see yy_png_blend_op
+} yy_png_chunk_fcTL;
+
+typedef struct {
+    uint32_t offset; ///< chunk offset in PNG data
+    uint32_t fourcc; ///< chunk fourcc
+    uint32_t length; ///< chunk data length
+    uint32_t crc32;  ///< chunk crc32
+} yy_png_chunk_info;
+
+typedef struct {
+    uint32_t chunk_index; ///< the first `fdAT`/`IDAT` chunk index
+    uint32_t chunk_num;   ///< the `fdAT`/`IDAT` chunk count
+    uint32_t chunk_size;  ///< the `fdAT`/`IDAT` chunk bytes
+    yy_png_chunk_fcTL frame_control;
+} yy_png_frame_info;
+
+typedef struct {
+    yy_png_chunk_IHDR header;   ///< png header
+    yy_png_chunk_info *chunks;      ///< chunks
+    uint32_t chunk_num;          ///< count of chunks
+
+    yy_png_frame_info *apng_frames; ///< frame info, NULL if not apng
+    uint32_t apng_frame_num;     ///< 0 if not apng
+    uint32_t apng_loop_num;      ///< 0 indicates infinite looping
+
+    uint32_t *apng_shared_chunk_indexs; ///< shared chunk index
+    uint32_t apng_shared_chunk_num;     ///< shared chunk count
+    uint32_t apng_shared_chunk_size;    ///< shared chunk bytes
+    uint32_t apng_shared_insert_index;  ///< shared chunk insert index
+    bool apng_first_frame_is_cover;     ///< the first frame is same as png (cover)
+} yy_png_info;
+
+static void yy_png_chunk_IHDR_read(yy_png_chunk_IHDR *IHDR, const uint8_t *data) {
+    IHDR->width = yy_swap_endian_uint32(*((uint32_t *)(data)));
+    IHDR->height = yy_swap_endian_uint32(*((uint32_t *)(data + 4)));
+    IHDR->bit_depth = data[8];
+    IHDR->color_type = data[9];
+    IHDR->compression_method = data[10];
+    IHDR->filter_method = data[11];
+    IHDR->interlace_method = data[12];
+}
+
+static void yy_png_chunk_IHDR_write(yy_png_chunk_IHDR *IHDR, uint8_t *data) {
+    *((uint32_t *)(data)) = yy_swap_endian_uint32(IHDR->width);
+    *((uint32_t *)(data + 4)) = yy_swap_endian_uint32(IHDR->height);
+    data[8] = IHDR->bit_depth;
+    data[9] = IHDR->color_type;
+    data[10] = IHDR->compression_method;
+    data[11] = IHDR->filter_method;
+    data[12] = IHDR->interlace_method;
+}
+
+static void yy_png_chunk_fcTL_read(yy_png_chunk_fcTL *fcTL, const uint8_t *data) {
+    fcTL->sequence_number = yy_swap_endian_uint32(*((uint32_t *)(data)));
+    fcTL->width = yy_swap_endian_uint32(*((uint32_t *)(data + 4)));
+    fcTL->height = yy_swap_endian_uint32(*((uint32_t *)(data + 8)));
+    fcTL->x_offset = yy_swap_endian_uint32(*((uint32_t *)(data + 12)));
+    fcTL->y_offset = yy_swap_endian_uint32(*((uint32_t *)(data + 16)));
+    fcTL->delay_num = yy_swap_endian_uint16(*((uint16_t *)(data + 20)));
+    fcTL->delay_den = yy_swap_endian_uint16(*((uint16_t *)(data + 22)));
+    fcTL->dispose_op = data[24];
+    fcTL->blend_op = data[25];
+}
+
+static void yy_png_chunk_fcTL_write(yy_png_chunk_fcTL *fcTL, uint8_t *data) {
+    *((uint32_t *)(data)) = yy_swap_endian_uint32(fcTL->sequence_number);
+    *((uint32_t *)(data + 4)) = yy_swap_endian_uint32(fcTL->width);
+    *((uint32_t *)(data + 8)) = yy_swap_endian_uint32(fcTL->height);
+    *((uint32_t *)(data + 12)) = yy_swap_endian_uint32(fcTL->x_offset);
+    *((uint32_t *)(data + 16)) = yy_swap_endian_uint32(fcTL->y_offset);
+    *((uint16_t *)(data + 20)) = yy_swap_endian_uint16(fcTL->delay_num);
+    *((uint16_t *)(data + 22)) = yy_swap_endian_uint16(fcTL->delay_den);
+    data[24] = fcTL->dispose_op;
+    data[25] = fcTL->blend_op;
+}
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**

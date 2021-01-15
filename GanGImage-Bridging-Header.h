@@ -4,3 +4,4 @@
 
 #import "YYImage.h"
 #import "YYAnimatedImageView.h"
+#import "YYImageCoder.h"

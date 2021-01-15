@@ -29,8 +29,25 @@ enum DisposeMethod: Int {
     /// No disposal is done on this frame before rendering the next;
     /// the contents of the canvas are left as is.
     case none
+
+    /// The frame's region of the canvas is to be cleared to fully transparent black
+    /// before rendering the next frame.
     case background
+
+    /// The frame's region of the canvas is to be reverted to the previous contents
+    /// before rendering the next frame.
     case previous
+}
+
+/// Blend operation specifies how transparent pixels of the current frame are
+/// blended with those of the previous canvas.
+enum BlendOperation: Int {
+    /// All color components of the frame, including alpha, overwrite the current
+    /// contents of the frame's canvas region.
+    case none
+
+    /// The frame should be composited onto the output buffer based on its alpha.
+    case over
 }
 
 // MARK: - Endianness
@@ -140,3 +157,153 @@ enum PNGBlendOp: Int {
     case over = 1
 }
 
+struct PNGChunkIHDR {
+    var width: UInt32             ///< pixel count, should not be zero
+    var height: UInt32            ///< pixel count, should not be zero
+    var bit_depth: UInt8           ///< expected: 1, 2, 4, 8, 16
+    var color_type: UInt8          ///< see yy_png_alpha_type
+    var compression_method: UInt8  ///< 0 (deflate/inflate)
+    var filter_method: UInt8       ///< 0 (adaptive filtering with five basic filter types)
+    var interlace_method: UInt8    ///< 0 (no interlace) or 1 (Adam7 interlace)
+}
+
+struct PNGChunkFcTL {
+    let sequence_number: UInt32  ///< sequence number of the animation chunk, starting from 0
+    let width: UInt32            ///< width of the following frame
+    let height: UInt32           ///< height of the following frame
+    let x_offset: UInt32         ///< x position at which to render the following frame
+    let y_offset: UInt32         ///< y position at which to render the following frame
+    let delay_num: UInt16        ///< frame delay fraction numerator
+    let delay_den: UInt16        ///< frame delay fraction denominator
+    let dispose_op: UInt8        ///< see yy_png_dispose_op
+    let blend_op: UInt8          ///< see yy_png_blend_op
+}
+
+struct PNGChunkInfo {
+    let offset: UInt32 ///< chunk offset in PNG data
+    let fourcc: UInt32 ///< chunk fourcc
+    let length: UInt32 ///< chunk data length
+    let crc32: UInt32  ///< chunk crc32
+}
+
+struct PNGFrameInfo {
+    let chunk_index: UInt32 ///< the first `fdAT`/`IDAT` chunk index
+    let chunk_num: UInt32   ///< the `fdAT`/`IDAT` chunk count
+    let chunk_size: UInt32  ///< the `fdAT`/`IDAT` chunk bytes
+    var frame_control: PNGChunkFcTL
+}
+
+struct PNGInfo {
+    var header: PNGChunkIHDR   ///< png header
+    var chunks: PNGChunkInfo      ///< chunks
+    let chunk_num: UInt32          ///< count of chunks
+
+    var apng_frames: PNGFrameInfo ///< frame info, NULL if not apng
+    let apng_frame_num: UInt32     ///< 0 if not apng
+    let apng_loop_num: UInt32      ///< 0 indicates infinite looping
+
+    var apng_shared_chunk_indexs: UInt32 ///< shared chunk index
+    let apng_shared_chunk_num: UInt32     ///< shared chunk count
+    let apng_shared_chunk_size: UInt32    ///< shared chunk bytes
+    let apng_shared_insert_index: UInt32  ///< shared chunk insert index
+    let apng_first_frame_is_cover: Bool     ///< the first frame is same as png (cover)
+}
+
+func pngChunckIHDRRead(IHDR: inout PNGChunkIHDR, data: UnsafePointer<UInt8>) {
+    IHDR.width = swapEndianUInt32(value: UInt32(data.pointee))
+    IHDR.height = swapEndianUInt32(value: UInt32(data.pointee + 4))
+    IHDR.bit_depth = data[8]
+    IHDR.color_type = data[9]
+    IHDR.compression_method = data[10]
+    IHDR.filter_method = data[11]
+    IHDR.interlace_method = data[12]
+}
+
+func pngChunckIHDRwrite(IHDR: PNGChunkIHDR, data: UnsafeMutablePointer<UInt8>) {
+    let dataPointer = UnsafeMutableRawPointer(data).bindMemory(to: UInt32.self, capacity: 1)
+
+    var width = swapEndianUInt32(value: (UInt32(IHDR.width)))
+    var height = swapEndianUInt32(value: UInt32(IHDR.height))
+    dataPointer.assign(from: &width, count: 1)
+    (dataPointer + 4).assign(from: &height, count: 1)
+
+    data[8] = IHDR.bit_depth
+    data[9] = IHDR.color_type
+    data[10] = IHDR.compression_method
+    data[11] = IHDR.filter_method
+    data[12] = IHDR.interlace_method
+}
+
+func pngChunkFcTLRead(fcTL: inout PNGChunkFcTL, data: UnsafePointer<UInt8>) {
+    fatalError("Does not Implemented")
+}
+
+func pngChunkFcTLWrite(fcTL: PNGChunkFcTL, data: UnsafeMutablePointer<UInt8>) {
+    fatalError("Does not Implemented")
+}
+
+func pngDelayToFraction(duration: Double, num: UnsafeMutablePointer<UInt16>, den: UnsafeMutablePointer<UInt16>) {
+    if (duration >= 0xFF) { // duration >= 255
+        num[0] = 0xFF
+        den[0] = 1
+    } else if (duration <= 1.0 / Double(0xFF)) {
+
+    }
+    fatalError("Does not Implemented")
+}
+
+func pngDelayToSeconds(num: UInt16, den: UInt16) -> Double {
+    fatalError("Does not Implemented")
+}
+
+func pngValidateAnimationChunkOrder(
+    chunks: PNGChunkInfo,
+    chunkNum: UInt32,
+    firstIdatIndex: UnsafePointer<UInt32>,
+    first_frame_is_cover: UnsafePointer<Bool>
+) -> Bool {
+    fatalError("Does not Implemented")
+}
+
+func pngInfoRelease(info: PNGInfo) {
+    // Free memory, maybe does not needed
+}
+
+func fourCC(_ c1: UInt32, _ c2: UInt32, _ c3: UInt32, _ c4: UInt32) -> UInt32 {
+    UInt32((c4 << 24) | (c3 << 16) | (c2 << 8) | c1)
+}
+
+func twoCC(_ c1: UInt8, _ c2: UInt8) -> UInt16 {
+    UInt16((c2 << 8) | c1)
+}
+
+extension Data {
+    var bytes: UnsafePointer<UInt8> {
+        let pngDataMutablePointer = UnsafeMutablePointer<UInt8>.allocate(capacity: count)
+        copyBytes(to: pngDataMutablePointer, count: count)
+        return UnsafePointer<UInt8>(pngDataMutablePointer)
+    }
+}
+
+/// Create a png info from a png file. See struct png_info for more information.
+///  A PNG always starts with 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A
+/// - Parameters:
+///   - data: png/apng file data.
+///   - length: the data's length in bytes.
+/// - Returns: A png info object, you may call yy_png_info_release() to release it.
+func pngInfoCreate(data: UnsafePointer<UInt8>, length: UInt32) -> Int? {
+    guard length >= 32 else { return nil }
+    var uint32Pointer = UnsafeRawPointer(data).bindMemory(to: UInt32.self, capacity: 1)
+
+    guard uint32Pointer.pointee == fourCC(0x89, 0x50, 0x4E, 0x47) else { return nil }
+
+    uint32Pointer = UnsafeRawPointer(data + 4).bindMemory(to: UInt32.self, capacity: 1)
+    guard uint32Pointer.pointee == fourCC(0x0D, 0x0A, 0x1A, 0x0A) else { return nil }
+
+    return 1
+}
+
+
+func detectImageType() {
+
+}
